@@ -540,14 +540,17 @@
                              topViewPosition:(ECSlidingViewControllerTopViewPosition)topViewPosition {
     CGRect frame = CGRectInfinite;
     
-    if ([(NSObject *)self.delegate respondsToSelector:@selector(slidingViewController:layoutControllerForTopViewPosition:)]) {
-        id<ECSlidingViewControllerLayout> layoutController = [self.delegate slidingViewController:self
-                                                               layoutControllerForTopViewPosition:topViewPosition];
-        
-        if (layoutController) {
-            frame = [layoutController slidingViewController:self
-                                     frameForViewController:viewController
-                                            topViewPosition:topViewPosition];
+    if (self.delegate)
+    {
+        if ([(NSObject *)self.delegate respondsToSelector:@selector(slidingViewController:layoutControllerForTopViewPosition:)]) {
+            id<ECSlidingViewControllerLayout> layoutController = [self.delegate slidingViewController:self
+                                                                   layoutControllerForTopViewPosition:topViewPosition];
+            
+            if (layoutController) {
+                frame = [layoutController slidingViewController:self
+                                         frameForViewController:viewController
+                                                topViewPosition:topViewPosition];
+            }
         }
     }
     
